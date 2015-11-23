@@ -27,13 +27,9 @@ public class SchemaBased_Initialization {
 	private static final String HOST = ReadConfigurationFromINIFile.HOST;
 	private static final String TEST_OUTPUT_IRI = ReadConfigurationFromINIFile.TEST_OUTPUT_IRI;
 	
-	public VirtGraph inputKBGraph, outputGraph;
-	private Model owlModel;
-	
-	
 
 	public VirtGraph getInputKBGraph() {
-		inputKBGraph = new VirtGraph(GRAPH, HOST, USERNAME, PASSWORD);
+		VirtGraph inputKBGraph = new VirtGraph(GRAPH, HOST, USERNAME, PASSWORD);
 		inputKBGraph.read("http://dbpedia.org/resource/classes#dbpedia_2014.owl",
 				"OWL");
 		return inputKBGraph;
@@ -45,9 +41,8 @@ public class SchemaBased_Initialization {
 	}
 	
 	
-	public Model getOWLModel() {
-		inputKBGraph = getInputKBGraph();
-		Model owlModel = ModelFactory.createModelForGraph(inputKBGraph);
+	public Model getOWLModel(VirtGraph g) {
+		Model owlModel = ModelFactory.createModelForGraph(g);
 		owlModel.read("http://dbpedia.org/resource/classes#dbpedia_2014.owl");
 		return owlModel;
 	}
@@ -97,11 +92,8 @@ public class SchemaBased_Initialization {
 
 		System.out.println(" -------- Generate Property-Domain Map --------");
 	
-		Query sparql6 = QueryFactory
-				.create("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-						+ "SELECT ?s ?domain "
-						+ "where {?s rdfs:domain ?domain}");
-
+		Query sparql6 = QueryFactory.create("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT ?s ?domain where {?s rdfs:domain ?domain}");
+		System.out.println(sparql6);
 		VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create(
 				sparql6, graph);
 		ResultSet results = vqe.execSelect();
@@ -115,6 +107,8 @@ public class SchemaBased_Initialization {
 			// System.out.println("-");
 			map.put(s1.toString(), d1.toString());
 		}
+		
+		vqe.close();
 
 		/*
 		 * for(java.util.Map.Entry<String, String> e : map.entries()) {
