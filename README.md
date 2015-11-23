@@ -21,9 +21,9 @@
     ```
 5. You can find intermediate results in `./intermediate` and final property-domain result in `./final` directories.
 
-    1. Intermediate output (./intermediateResult/classMaxConf.csv)
+    1. Intermediary output (./intermediateResult/classMaxConf.csv)
     
-        This result shows the maximum relatedness score (of property) related to the following class.
+        This result shows the __maximum relatedness score__ (of property) related to the __following class__.
 
         | Domain                            | ConfVal(Max) |
         |-----------------------------------|--------------|
@@ -34,9 +34,9 @@
         | /Skyscraper                       |       157.76 |	
 
 
-    2. Output example (./finalResult/proptypeconf.csv)
+    2. Intermediary output (./finalResult/proptypeconf.csv)
     
-        This result shows the relatedness score of property to relevant domains.
+        This result shows the __relatedness score__ of property to relevant domains.
 
         | Property     | Domain                  | ConfVal |
         |--------------|-------------------------|---------|
@@ -47,9 +47,9 @@
         | prop:ko/층수 | /Skyscraper             |   90.83 |
 
 
-    3.  Output example (./finalResult/PROPDI_top1_result.csv)
+    3.  Final __PROPDI__ result (./finalResult/PROPDI_top1_result.csv)
 
-        By referring 1 and 2, the most relevant domain is categorized for each property.
+        By referring 1 and 2, __the most relevant domain__ is categorized for __each property__.
 
         | Property                                | Domain                               |
         |-----------------------------------------|--------------------------------------|
