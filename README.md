@@ -21,13 +21,38 @@
     ```
 5. You can find intermediate results in `./intermediate` and final property-domain result in `./final` directories.
 
-	* Output example (proptypeconf.csv)
-    Property | Domain | ConfVal
-    ------------------------------------ | ------------------------------------------- | -----------------------------------------
-    http://ko.dbpedia.org/property/층수 | http://schema.org/Place  | 1.308368839665762
-    http://ko.dbpedia.org/property/층수 | http://dbpedia.org/ontology/ArchitecturalStructure | 2.021948697999311
-    http://ko.dbpedia.org/property/층수 | http://dbpedia.org/ontology/Building | 24.79589237729011
-    http://ko.dbpedia.org/property/층수 | http://dbpedia.org/ontology/Hotel | 44.332050007882316
-    http://ko.dbpedia.org/property/층수 | http://dbpedia.org/ontology/Skyscraper  | 90.83723972203339
+    1. Intermediate output (./intermediateResult/classMaxConf.csv)
+    
+        This result shows the maximum relatedness score (of property) related to the following class.
+
+        | Domain                            | ConfVal(Max) |
+        |-----------------------------------|--------------|
+        | http://dbpedia.org/ontology/Place |        22.31 |
+        | /ArchitecturalStructure           |        34.49 |
+        | /Building                         |        41.96 |
+        | /Hotel                            |       105.02 |
+        | /Skyscraper                       |       157.76 |	
 
 
+    2. Output example (./finalResult/proptypeconf.csv)
+    
+        This result shows the relatedness score of property to relevant domains.
+
+        | Property     | Domain                  | ConfVal |
+        |--------------|-------------------------|---------|
+        | prop:ko/층수 | /Place                  |    1.31 |
+        | prop:ko/층수 | /ArchitecturalStructure |    2.02 |
+        | prop:ko/층수 | /Building               |   24.79 |
+        | prop:ko/층수 | /Hotel                  |   44.33 |
+        | prop:ko/층수 | /Skyscraper             |   90.83 |
+
+
+    3.  Output example (./finalResult/PROPDI_top1_result.csv)
+
+        By referring 1 and 2, the most relevant domain is categorized for each property.
+
+        | Property                                | Domain                               |
+        |-----------------------------------------|--------------------------------------|
+        | http://ko.dbpedia.org/property/층수     | http://dbpedia.org/ontology/Building |
+        | http://ko.dbpedia.org/property/작곡가   | http://dbpedia.org/ontology/Song     |
+        | http://ko.dbpedia.org/property/자매기업 | http://dbpedia.org/ontology/Company  |
