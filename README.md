@@ -9,22 +9,24 @@
 
 2. Edit `config.ini` file according to the settings
 
-3. For running __PROPDI__ on your machine, go to the root directory and execute this command.
-   Since `virt-jena.jar`, `virt-jdbc.jar` cannot be found in maven web repository, we generated in-project repo. 
+3. For running __PROPDI__ on your machine, go to the root directory and execute this command. <br>
+
     ```
     mvn -U package
     ```
    then `PROPDI-1.0-SNAPSHOR.jar` file will be generated in `./target` directory.
 
 4. Then run the generated `.jar` file.
-	* Quick check that our `.jar` file is built
-		```
-		java -cp target/PROPDI-1.0-SNAPSHOT.jar kr.ac.kaist.dm.App
-		```
-    * Run PROPDI class
-		```
-		java -cp target/PROPDI-1.0-SNAPSHOT.jar kr.ac.kaist.dm.PROPDI
-		```
+    * Quick check that our `.jar` file is built:
+        
+        ```
+        java -cp target/PROPDI-1.0-SNAPSHOT.jar kr.ac.kaist.dm.App
+	```
+    * Run __PROPDI__ class:
+        
+        ```
+	java -cp target/PROPDI-1.0-SNAPSHOT.jar kr.ac.kaist.dm.PROPDI
+	```
 		
 5. You can find intermediate results in `./intermediate` and final property-domain result in `./final` directories.
 
