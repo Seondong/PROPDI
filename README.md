@@ -9,14 +9,16 @@
 
 2. Go to the root directory `(cd PROPDI)` and edit `config.ini` file according to your settings
 
-3. For running __PROPDI__ on your machine, execute this command. <br>
+3. Remove `./intermediate` directory if you want to run it from the scratch using your knowledge base. 
+
+4. For running __PROPDI__ on your machine, execute this command. <br>
 
     ```
     mvn -U package
     ```
    then `PROPDI-1.0-SNAPSHOR.jar` file will be generated in `./target` directory.
 
-4. Then run the generated `.jar` file.
+5. Then run the generated `.jar` file.
     * Quick check that our project is built (You will see randomly generated Unique ID - No Meaning):
 
         ```
@@ -28,7 +30,7 @@
 	java -cp target/PROPDI-1.0-SNAPSHOT.jar kr.ac.kaist.dm.PROPDI
 	```
 		
-5. You can find intermediate results in `./intermediate` and final property-domain result in `./final` directories.
+6. You can find intermediate results in `./intermediate` and final property-domain result in `./final` directories.
 
     1. Intermediary output (./intermediateResult/classMaxConf.csv)
     
@@ -43,7 +45,7 @@
         | /Skyscraper                       |       157.76 |	
 
 
-    2. Intermediary output (./finalResult/proptypeconf.csv)
+    2. Intermediary output (./intermediateResult/proptypeconf.csv)
     
         This result shows the __relatedness score__ of property to relevant domains.
 

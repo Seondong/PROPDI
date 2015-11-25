@@ -75,56 +75,21 @@ public class PROPDI {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		System.out.println("start " + dateFormat.format(startTime.getTime()));
 
-//		// Read Configuration File from config.ini
+		// Read Configuration File from config.ini
 		ReadConfigurationFromINIFile.readConfigurationFromINIFile(iniFilePath);
 		System.out.println("Written by Sundong Kim (sundong.kim@kaist.ac.kr)");
 		
+		// Load Knowledge base to perform PROPDI
+		System.out.println("--------Loading Knowledge base--------");
 		SchemaBased_Initialization si = new SchemaBased_Initialization();
 		VirtGraph g = si.getInputKBGraph();
 		Model owlModel = si.getOWLModel(g);
-		System.out.println(owlModel.size());
+		System.out.println("Done!");
 		
-		/***
-		 * Load Prop:ko-DBO Mapping Information from text file and put it on the
-		 * memory(Multimap) - relatively small size
-		 ***/
-//		ArrayListMultimap<String, String> propko_dbp_map = si
-//				.generatePropkoDBOMap();
-
-		/***
-		 * Load Property-Domain Information from the OWL file and put it on the
-		 * memory(Multimap)
-		 ***/
-	
-		
-//		ArrayListMultimap<String, String> property_domain_map = si
-//				.generatePropertyDomainMap(g);
-//		System.out.println(property_domain_map.size());
-
-		/***
-		 * Generate predicate weight & Type distribution table
-		 */
-//		InstanceBased_Initialization ii = new InstanceBased_Initialization();
-//
-//		HashMap<String, Double> predicate_weight = ii.getWeightTable();
-//		Table<String, String, Double> type_distribution = HashBasedTable
-//				.create();
-//		type_distribution = ii.getDistributionTable();
-
 		outputTTL = ModelFactory.createDefaultModel();
 
-		// Set<String> new_subject = new TreeSet<String>();
-
-
-		p.propDomainInference2(owlModel, g);
-
-		// VirtGraph outputGraph = si.getOutputGraph();
-		//
-		// outputGraph.close();
-
-		// int endOfFile =
-		// b.ProcessCertainAmountTriplesFromLocal(property_domain_map,
-		// propko_dbp_map, predicate_weight, type_distribution);
+		// Run PROPDI main pipeline
+		p.propDomainInference(owlModel, g);
 
 		// Check Finishing Time
 		Calendar endTime = Calendar.getInstance();
@@ -152,8 +117,7 @@ public class PROPDI {
 	}
 	
 
-	// Vector로 만들어서 propertyGeneralization 시작 (property-class table)
-	private void propDomainInference2(Model owlModel,
+	private void propDomainInference(Model owlModel,
 			VirtGraph g) throws IOException {
 
 		String TEST_INPUT_IRI = "http://bboxtestinput2.kaist.ac.kr";
@@ -161,13 +125,6 @@ public class PROPDI {
 		String USERNAME = "dba";
 		String PASSWORD = "dba";
 		System.out.println("--------Processing PROPDI--------");
-		// 리스트: 인스턴스가 많은 클래스 순서대로 나열
-		// for(각 클래스){
-		// 각 클래스에 속한 인스턴스가 가진 프로퍼티의 총 빈도를 계산하여 저장
-		// }
-		// for (각 프로퍼티){
-		// 상위 빈도를 갖는 프로퍼티의 경우 프로퍼티의 도메인을 해당 클래
-		// }
 
 		VirtGraph set = new VirtGraph("http://ko.dbpedia.org", HOST, USERNAME,
 				PASSWORD);
@@ -181,7 +138,7 @@ public class PROPDI {
 		
 		/*** Generating Data ***/
 		
-		System.out.println("Generating Instance-type frequency data - ./intermediateResult/insttypefreq.csv");
+		System.out.println("(1/9) Generating Instance-type frequency data - ./intermediateResult/insttypefreq.csv");
 		
 		File f1 = new File(intermdir+"/insttypefreq.csv");
 		if (f1.exists() && !f1.isDirectory()) {
@@ -208,7 +165,7 @@ public class PROPDI {
 		
 		
 		/*** Generating Data2 ***/
-		System.out.println("Generating prop-ko list - ./intermediateResult/proptypeinference_propkolist.csv");
+		System.out.println("(2/9) Generating prop-ko list - ./intermediateResult/proptypeinference_propkolist.csv");
 		
 		File f2 = new File(intermdir+"/proptypeinference_propkolist.csv");
 		if (f2.exists() && !f2.isDirectory()) {
@@ -238,7 +195,7 @@ public class PROPDI {
 		
 		
 		/*** Generating Data3 ***/
-		System.out.println("Finding number of entity for each prop-domain pair - ./intermediateResult/proptypefreq.csv");
+		System.out.println("(3/9) Finding number of entity for each prop-domain pair - ./intermediateResult/proptypefreq.csv");
 		
 		File f3 = new File(intermdir+"/proptypefreq.csv");
 		if (f3.exists() && !f3.isDirectory()) {
@@ -283,7 +240,7 @@ public class PROPDI {
 		
 		
 		/*** Generating Data4 ***/
-		System.out.println("Finding apriori probability of prop-domain pair - ./intermediateResult/proptypeprob.csv");
+		System.out.println("(4/9) Finding apriori probability of prop-domain pair - ./intermediateResult/proptypeprob.csv");
 		
 		File f4 = new File(intermdir+"/proptypeprob.csv");
 		if (f4.exists() && !f4.isDirectory()) {
@@ -299,7 +256,7 @@ public class PROPDI {
 		
 		
 		/*** Generating Data5 ***/
-		System.out.println("Calculating baseline prob value for each property - ./intermediateResult/averageValueForProp.csv");
+		System.out.println("(5/9) Calculating baseline prob value for each property - ./intermediateResult/averageValueForProp.csv");
 		
 		File f5 = new File(intermdir+"/averageValueForProp.csv");
 		if (f5.exists() && !f5.isDirectory()) {
@@ -326,9 +283,9 @@ public class PROPDI {
 		
 		
 		/*** Generating Data6-1 (Recall%, SRDF-like TTL data) ***/
-		System.out.println("Generating confidence value of property-domain pair - ./finalresult/proptypeconf.csv");
+		System.out.println("(6/9) Generating confidence value of property-domain pair - ./intermediateResult/proptypeconf.csv");
 		
-		File f6 = new File(finaldir+"/proptypeconf.csv");
+		File f6 = new File(intermdir+"/proptypeconf.csv");
 		if (f6.exists() && !f6.isDirectory()) {
 			System.out.println("File already exists - Done!");
 		} else {
@@ -344,11 +301,11 @@ public class PROPDI {
 					}
 				}
 			}
-			PrintTableToCSV(proptypeconf, finaldir+"/proptypeconf.csv");
+			PrintTableToCSV(proptypeconf, intermdir+"/proptypeconf.csv");
 			System.out.println("File is succesfully created!");
 		}
 
-		RowSortedTable<String, String, Double> proptypeconf = ReadTableFromCSV(finaldir+"/proptypeconf.csv");
+		RowSortedTable<String, String, Double> proptypeconf = ReadTableFromCSV(intermdir+"/proptypeconf.csv");
 
 //		int numMaxMatches = proptypeconf.size(); // Number of possible
 //													// matches(prop-domain)
@@ -406,7 +363,7 @@ public class PROPDI {
 		
 		
 		/*** Generating Data 7 (Find maximum value of each property for reference) ***/
-		System.out.println("Find maximum value of each property for reference - ./intermediateresult/sortedproptypemaxfreq.csv");
+		System.out.println("(7/9) Find maximum value of each property for reference - ./intermediateresult/sortedproptypemaxfreq.csv");
 		
 		File f7 = new File(intermdir+"/sortedproptypemaxfreq.csv");
 		if (f7.exists() && !f7.isDirectory()) {
@@ -428,7 +385,7 @@ public class PROPDI {
 		
 		
 		/*** Generating Data 8 (Find maximum value of each class for reference) ***/
-		System.out.println("Find maximum value of each class for reference - ./intermediateresult/classMaxConf.csv");
+		System.out.println("(8/9) Find maximum value of each class for reference - ./intermediateresult/classMaxConf.csv");
 		
 		File f8 = new File(intermdir+"/classMaxConf.csv");
 		if (f8.exists() && !f8.isDirectory()) {
@@ -450,9 +407,9 @@ public class PROPDI {
 
 		
 		
+		System.out.println("(9/9) Finding Top-1 relevant domain based on intermediate results");
 		
 		
-		System.out.println("------- Need to clean up code from here ----------");
 		DecimalFormat newFormat = new DecimalFormat("#.####");
 		
 //		Set<String> propSet = proptypeconf.rowKeySet();  //prop 이름순서 
@@ -475,9 +432,8 @@ public class PROPDI {
 		}
 		
 		int sizeSubset = anotherPropList.indexOf(target)+1;
-		System.out.println(anotherPropList.get(sizeSubset-1));
 		
-		System.out.format("Total number of properties : %d\n", anotherPropList.size());
+		
 //		System.out.format("Number of property needed for %.4f percent coverage is %d\n", coverage*100, sizeSubset);
 		
 //		Subset:   ImmutableSet.copyOf(Iterables.limit(propSet, 20))  //Subset
@@ -501,9 +457,6 @@ public class PROPDI {
 			classaggList.add(class5.toString()+","+subclass5.toString());
 		}
 		vqe5.close();
-		System.out.println("------- Need to clean up code from here ----------");
-		System.out.println(classaggList);
-		
 		
 		
 		LinkedHashMap<String, String> propdomainpreliminaryresult = new LinkedHashMap<String, String>();
@@ -570,7 +523,7 @@ public class PROPDI {
 		}
 		
 		PrintStringMapToCSV(propdomainpreliminaryresult, finaldir+"/PROPDI_top1_result.csv");
-		
+		System.out.println("Done! - check ./finalResult directory.");
 		
 		
 
