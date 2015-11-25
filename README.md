@@ -7,9 +7,9 @@
     git clone https://github.com/Seondong/PROPDI.git 
     ```
 
-2. Edit `config.ini` file according to the settings
+2. Go to the root directory `(cd PROPDI)` and edit `config.ini` file according to your settings
 
-3. For running __PROPDI__ on your machine, go to the root directory and execute this command. <br>
+3. For running __PROPDI__ on your machine, execute this command. <br>
 
     ```
     mvn -U package
@@ -17,8 +17,8 @@
    then `PROPDI-1.0-SNAPSHOR.jar` file will be generated in `./target` directory.
 
 4. Then run the generated `.jar` file.
-    * Quick check that our `.jar` file is built:
-        
+    * Quick check that our project is built (You will see randomly generated Unique ID - No Meaning):
+
         ```
         java -cp target/PROPDI-1.0-SNAPSHOT.jar kr.ac.kaist.dm.App
 	```
