@@ -95,7 +95,7 @@ public class PROPDI {
 
 //		// Read Configuration File from config.ini
 		ReadConfigurationFromINIFile.readConfigurationFromINIFile(iniFilePath);
-		System.out.println("Written by Sundong Kim");
+		System.out.println("Written by Sundong Kim (sundong.kim@kaist.ac.kr)");
 		
 		SchemaBased_Initialization si = new SchemaBased_Initialization();
 		VirtGraph g = si.getInputKBGraph();

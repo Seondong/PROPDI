@@ -25,7 +25,7 @@
     
         This result shows the __maximum relatedness score__ (of property) related to the __following class__.
 
-        | Domain                            | ConfVal(Max) |
+        | Domain                            | Score(Max) |
         |-----------------------------------|--------------|
         | http://dbpedia.org/ontology/Place |        22.31 |
         | /ArchitecturalStructure           |        34.49 |
@@ -38,7 +38,7 @@
     
         This result shows the __relatedness score__ of property to relevant domains.
 
-        | Property     | Domain                  | ConfVal |
+        | Property     | Domain                  | Score |
         |--------------|-------------------------|---------|
         | prop:ko/층수 | /Place                  |    1.31 |
         | prop:ko/층수 | /ArchitecturalStructure |    2.02 |
