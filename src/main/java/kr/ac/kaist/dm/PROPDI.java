@@ -58,25 +58,7 @@ import com.opencsv.CSVWriter;
  * @author Sundong Kim (sundong.kim@kaist.ac.kr)
  * 
  * 
- *         Previous version of Property Domain Inference so called Property
- *         generalization works based on a basic probability model. If a
- *         property is shared by the most instance in certain type (over the
- *         threshold), then we infer that the property has enough evidence to
- *         have that type as a domain. The formula was as follows.
- *         threhold(property has a type t) = 1/(1+logx), x = number of instance
- *         in that class. This formula consider that larger class's data
- *         sparsity. And we also developed property domain deletion equation as
- *         opposed to this.
- * 
- *         However, there are some issues. By looking at the real data, certain
- *         property are too general so that every instance in the class might
- *         contains, and some are too specific that only very few instance
- *         contains even though it is a right answer.
- * 
- *         Class(Type, Domain) Property1: # of instances having p1 Property2: #
- *         of instances having p2 Property3: # of instances having p3 Property4:
- *         # of instances having p4
- * 
+ * Property Domain Inference (PROPDI) 
  * 
  */
 
