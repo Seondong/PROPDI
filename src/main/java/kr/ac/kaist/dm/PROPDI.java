@@ -120,13 +120,12 @@ public class PROPDI {
 	private void propDomainInference(Model owlModel,
 			VirtGraph g) throws IOException {
 
-		String TEST_INPUT_IRI = "http://bboxtestinput2.kaist.ac.kr";
-		String HOST = "jdbc:virtuoso://dmserver5.kaist.ac.kr:4004/charset=UTF-8/log_enable=2";
+		String HOST = "jdbc:virtuoso://dmserver6.kaist.ac.kr:1111/charset=UTF-8/log_enable=2";
 		String USERNAME = "dba";
 		String PASSWORD = "dba";
 		System.out.println("--------Processing PROPDI--------");
 
-		VirtGraph set = new VirtGraph("http://ko.dbpedia.org", HOST, USERNAME,
+		VirtGraph set = new VirtGraph("http://de.dbpedia.org", HOST, USERNAME,
 				PASSWORD);
 		
 		String currentDir = System.getProperty("user.dir");
@@ -168,12 +167,12 @@ public class PROPDI {
 		System.out.println("(2/9) Generating prop-ko list - ./intermediateResult/proptypeinference_propkolist.csv");
 		
 		File f2 = new File(intermdir+"/proptypeinference_propkolist.csv");
-		if (f2.exists() && !f2.isDirectory()) {
+		if (f2.exists() && !f2.isDirectory() && f2.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			Query sparql = QueryFactory
 					.create("SELECT DISTINCT ?p where { ?s ?p ?o . "
-							+ "FILTER regex(str(?p), \"http://ko.dbpedia.org/property\" ). }");
+							+ "FILTER regex(str(?p), \"http://de.dbpedia.org/property\" ). }");
 
 			VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create(
 					sparql, set);
@@ -187,6 +186,7 @@ public class PROPDI {
 				propkolist.add(propko);
 			}
 			vqe.close();
+			System.out.println(propkolist);
 			PrintDataToCommaDelimitedFile(propkolist,
 					intermdir+"/proptypeinference_propkolist.csv");
 			System.out.println("File is succesfully created!");
