@@ -125,7 +125,7 @@ public class PROPDI {
 		String PASSWORD = "dba";
 		System.out.println("--------Processing PROPDI--------");
 
-		VirtGraph set = new VirtGraph("http://de.dbpedia.org", HOST, USERNAME,
+		VirtGraph set = new VirtGraph("http://dbpedia.org", HOST, USERNAME,
 				PASSWORD);
 		
 		String currentDir = System.getProperty("user.dir");
@@ -140,7 +140,7 @@ public class PROPDI {
 		System.out.println("(1/9) Generating Instance-type frequency data - ./intermediateResult/insttypefreq.csv");
 		
 		File f1 = new File(intermdir+"/insttypefreq.csv");
-		if (f1.exists() && !f1.isDirectory()) {
+		if (f1.exists() && !f1.isDirectory() && f1.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			HashMap<String, Double> insttypefreq = new HashMap<String, Double>();
@@ -172,7 +172,7 @@ public class PROPDI {
 		} else {
 			Query sparql = QueryFactory
 					.create("SELECT DISTINCT ?p where { ?s ?p ?o . "
-							+ "FILTER regex(str(?p), \"http://de.dbpedia.org/property\" ). }");
+							+ "FILTER regex(str(?p), \"http://dbpedia.org/property\" ). }");
 
 			VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create(
 					sparql, set);
@@ -186,7 +186,6 @@ public class PROPDI {
 				propkolist.add(propko);
 			}
 			vqe.close();
-			System.out.println(propkolist);
 			PrintDataToCommaDelimitedFile(propkolist,
 					intermdir+"/proptypeinference_propkolist.csv");
 			System.out.println("File is succesfully created!");
@@ -198,7 +197,7 @@ public class PROPDI {
 		System.out.println("(3/9) Finding number of entity for each prop-domain pair - ./intermediateResult/proptypefreq.csv");
 		
 		File f3 = new File(intermdir+"/proptypefreq.csv");
-		if (f3.exists() && !f3.isDirectory()) {
+		if (f3.exists() && !f3.isDirectory() && f3.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			CSVReader reader2 = new CSVReader(new FileReader(
@@ -243,7 +242,7 @@ public class PROPDI {
 		System.out.println("(4/9) Finding apriori probability of prop-domain pair - ./intermediateResult/proptypeprob.csv");
 		
 		File f4 = new File(intermdir+"/proptypeprob.csv");
-		if (f4.exists() && !f4.isDirectory()) {
+		if (f4.exists() && !f4.isDirectory() && f4.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			RowSortedTable<String, String, Double> proptypeprob = generatePropTypeProb(
@@ -259,7 +258,7 @@ public class PROPDI {
 		System.out.println("(5/9) Calculating baseline prob value for each property - ./intermediateResult/averageValueForProp.csv");
 		
 		File f5 = new File(intermdir+"/averageValueForProp.csv");
-		if (f5.exists() && !f5.isDirectory()) {
+		if (f5.exists() && !f5.isDirectory() && f5.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			HashMap<String, Double> averageValueForProp = new HashMap<String, Double>();
@@ -286,7 +285,7 @@ public class PROPDI {
 		System.out.println("(6/9) Generating confidence value of property-domain pair - ./intermediateResult/proptypeconf.csv");
 		
 		File f6 = new File(intermdir+"/proptypeconf.csv");
-		if (f6.exists() && !f6.isDirectory()) {
+		if (f6.exists() && !f6.isDirectory() && f6.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			RowSortedTable<String, String, Double> proptypeconf = TreeBasedTable
@@ -366,7 +365,7 @@ public class PROPDI {
 		System.out.println("(7/9) Find maximum value of each property for reference - ./intermediateresult/sortedproptypemaxfreq.csv");
 		
 		File f7 = new File(intermdir+"/sortedproptypemaxfreq.csv");
-		if (f7.exists() && !f7.isDirectory()) {
+		if (f7.exists() && !f7.isDirectory() && f7.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			
@@ -388,7 +387,7 @@ public class PROPDI {
 		System.out.println("(8/9) Find maximum value of each class for reference - ./intermediateresult/classMaxConf.csv");
 		
 		File f8 = new File(intermdir+"/classMaxConf.csv");
-		if (f8.exists() && !f8.isDirectory()) {
+		if (f8.exists() && !f8.isDirectory() && f8.length() > 0) {
 			System.out.println("File already exists - Done!");
 		} else {
 			
