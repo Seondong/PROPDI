@@ -125,12 +125,12 @@ public class PROPDI {
 		String PASSWORD = "dba";
 		System.out.println("--------Processing PROPDI--------");
 
-		VirtGraph set = new VirtGraph("http://dbpedia.org", HOST, USERNAME,
+		VirtGraph set = new VirtGraph("http://ko.dbpedia.org", HOST, USERNAME,
 				PASSWORD);
 		
 		String currentDir = System.getProperty("user.dir");
-		File intermdir = new File(currentDir+"/intermediateResult/");
-		File finaldir = new File(currentDir+"/finalResult/");
+		File intermdir = new File(currentDir+"/intermediateResult_ko_2015/");
+		File finaldir = new File(currentDir+"/finalResult_ko_2015/");
 		intermdir.mkdirs();
 		finaldir.mkdirs();
 		
@@ -172,7 +172,7 @@ public class PROPDI {
 		} else {
 			Query sparql = QueryFactory
 					.create("SELECT DISTINCT ?p where { ?s ?p ?o . "
-							+ "FILTER regex(str(?p), \"http://dbpedia.org/property\" ). }");
+							+ "FILTER regex(str(?p), \"http://ko.dbpedia.org/property\" ). }");
 
 			VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create(
 					sparql, set);
